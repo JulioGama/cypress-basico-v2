@@ -1,43 +1,12 @@
 name: End-to-end tests 🧪
-
-on:
-  push:
-    branches:
-      - main  # Pode ser 'main' ou o nome da sua branch principal
-  pull_request:
-    branches:
-      - main  # Para rodar os testes também quando houver PRs para a branch principal
-
+on: [push]
 jobs:
   cypress-run:
-    runs-on: ubuntu-20.04  # Especifica o ambiente que o job irá rodar
-
+    runs-on: ubuntu-20.04
     steps:
-      # Faz checkout do código no repositório
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
-
-      # Instala o Node.js
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'  # Verifique a versão do Node.js compatível com a sua aplicação
-
-      # Instala as dependências do projeto, incluindo Cypress
-      - name: Install dependencies
-        run: npm ci  # Ou use 'npm install' se preferir instalar as dependências normalmente
-
-      # Executa os testes do Cypress
+      # Install NPM dependencies, cache them correctly
+      # and run all Cypress tests
       - name: Cypress run
         uses: cypress-io/github-action@v6
-        with:
-          start: npm start  # Caso a sua aplicação precise ser iniciada, altere para o comando adequado
-          
-      # Optional: Archive Cypress Test Results (como vídeos, screenshots, logs)
-      - name: Upload Cypress test artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: cypress-results
-          path: |
-            cypress/videos/*
-            cypress/screenshots/*
