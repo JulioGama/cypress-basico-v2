@@ -32,8 +32,6 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           start: npm start  # Caso a sua aplicação precise ser iniciada, altere para o comando adequado
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}  # Caso esteja usando Cypress Dashboard
           
       # Optional: Archive Cypress Test Results (como vídeos, screenshots, logs)
       - name: Upload Cypress test artifacts
